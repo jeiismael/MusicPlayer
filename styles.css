@@ -1,0 +1,57 @@
+.music-player {
+    background-image: url('Background.png');
+    height: 466px;
+    width: 711px;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    
+}
+
+.showcase {
+    display: flex;
+    justify-content: center;
+}
+
+.info {
+    text-align: center;
+}
+
+.seeker {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.time {
+    width: 385px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.time-elapsed {
+    
+}
+
+
+
+.progress {
+}
+
+.bar {
+    width: 385px;
+}
+
+
+.controls {
+    display: flex;
+    align-items: center;
+}
+
+/* Vinyl */
+
+
+
