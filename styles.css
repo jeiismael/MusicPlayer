@@ -1,57 +1,133 @@
-.music-player {
-    background-image: url('Background.png');
-    height: 466px;
-    width: 711px;
-    margin: 0 auto;
-    background-repeat: no-repeat;
-    
+body {
+  background-image: url("Background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "Noto Sans", sans-serif;
+  color: #28111e;
 }
 
-.showcase {
-    display: flex;
-    justify-content: center;
+.music-player {
+  height: 100vh;
+  width: 100vh;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+/* Player */
+.player {
+  width: 466px;
+  height: 711px;
+  background: rgba(245, 245, 245, 0.75);
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 32px;
+}
+
+/* Album thumbnail */
+.showcase {
+  display: flex;
+  justify-content: center;
+  transform: translate(-5%, 0);
+}
+
+.artist {
+  height: 258.02px;
+  width: 258.02px;
+  padding-top: 40px;
+  z-index: 2;
+}
+
+.vinyl {
+  position: absolute;
+  right: 20px;
+  z-index: 1;
+  padding-top: 40px;
+  height: 242.36px;
+  width: 242.36px;
+}
+
+/* Info Text */
 
 .info {
-    text-align: center;
+  text-align: center;
+}
+
+.song h1 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 33px;
+  text-align: center;
+  font-style: normal;
+}
+.artistname h1 {
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
 }
 
 .seeker {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 19px;
 }
 
 .time {
-    width: 385px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
+  width: 385px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.time-elapsed {
-    
-}
-
-
-
-.progress {
-}
+/* Seeker Bar */
 
 .bar {
-    width: 385px;
-}
+    width: 385px;     
+  }
+  
+  .seeker {
+    
+    width: 100%; 
+    
+  }
+  
+  .bar::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px; 
+    background: blue; 
+    border-radius: 50%; 
+    cursor: pointer; 
+  }
+  
 
+/* Control Buttons */
 
 .controls {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
-/* Vinyl */
+.play-pause {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.play-pause-button {
+  position: absolute;
+  z-index: 2;
+  transform: translate(10%, -20%);
+}
 
-
+.play-pause-background {
+  position: relative;
+}
