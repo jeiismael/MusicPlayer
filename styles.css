@@ -78,6 +78,8 @@ body {
   font-weight: 300;
   font-size: 14px;
   line-height: 19px;
+  width: 100%;
+  position: relative;
 }
 
 .time {
@@ -90,44 +92,83 @@ body {
 /* Seeker Bar */
 
 .bar {
-    width: 385px;     
-  }
-  
-  .seeker {
-    
-    width: 100%; 
-    
-  }
-  
-  .bar::-webkit-slider-thumb {
-    width: 20px;
-    height: 20px; 
-    background: blue; 
-    border-radius: 50%; 
-    cursor: pointer; 
+    width: 385px;
+    position: relative;
   }
   
 
-/* Control Buttons */
+  .bar input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    border-radius: 3px;
+    background: white;     
+  }
+  
+  .progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5px;
+    border-radius: 3px;
+    width: 40%;
+    max-width: 365px;
+    background: #56255C;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+    overflow: none;
+  }
+  
+  .bar input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; 
+    height: 22px;
+    background: whitesmoke; 
+    border-radius: 50%;
+    border: 5px solid #56255C;
+    z-index: 2;
+    
+  }
+
+  
 
 .controls {
   display: flex;
   align-items: center;
+  margin-top: 10px;
 }
 
+.control-button {
+  background: transparent;
+  border: none;
+  transition: transform 0.2s ease-in-out;
+}
+
+.control-button:hover, .control-button-pp:hover {
+  transform: scale(1.1);
+}
+
+.control-button-pp {
+  left: 100px;
+  background: none;
+  border: none;
+  padding-left: 15px;
+}
 .play-pause {
   position: relative;
   display: flex;
+  width: 120px;
+  height: 120px;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(180deg, #96385A 0%, #66255D 100%);
+  ;
+  border-radius: 50%;
 }
 
-.play-pause-button {
-  position: absolute;
-  z-index: 2;
-  transform: translate(10%, -20%);
-}
 
-.play-pause-background {
-  position: relative;
-}
+
