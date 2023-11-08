@@ -8,6 +8,7 @@
   </head>
 
   <body>
+    <!-- music player -->
     <div class="music-player">
       <div class="player">
         <span class="showcase">
@@ -22,7 +23,7 @@
             <h1>Taylor Swift</h1>
           </div>
         </div>
-        <audio id="audio-player" src=""></audio>
+
         <div class="seeker">
           <div class="time">
             <span class="time-elapsed" id="time-elapsed">5:00</span>
@@ -30,7 +31,7 @@
           </div>
 
           <div class="bar">
-            <input type="range" value="40" class="bar" id="seek-bar"/>
+            <input type="range" value="40" class="bar" id="seek-bar" />
             <div class="progress" id="progress"></div>
           </div>
 
@@ -40,7 +41,7 @@
             </button>
             <div id="" class="play-pause">
               <button id="play-pause-button" class="control-button-pp">
-                <img src="Polygon 1.png" id="play-pause"/>
+                <img src="Polygon 1.png" id="play-pause" />
               </button>
             </div>
             <button id="next-button" class="control-button">
@@ -49,6 +50,38 @@
           </div>
         </div>
       </div>
+    </div>
+    <!-- navigation and content -->
+    <div class="explore-container">
+    <div class="explore">
+      <div class="header">
+        <h1>Explore</h1>
+      </div>
+
+      <div class="navigation">
+        <nav>
+          <h1 id="lyrics-link" class="active">Lyrics</h1>
+          <h1 id="albums-link">Other Albums</h1>
+          <h1 id="artist-link">Related Artist</h1>
+        </nav>
+      </div>
+
+      <div class="nav-content">
+        <div id="lyrics-content" style="display: block;">
+          <!-- Content for Lyrics (displayed by default) -->
+          <p>Lyrics content goes here.</p>
+        </div>
+        <div id="albums-content">
+          <!-- Content for Other Albums -->
+          <p>Other Albums content goes here.</p>
+        </div>
+        <div id="artist-content">
+          <!-- Content for Related Artist -->
+          <p>Related Artist content goes here.</p>
+        </div>
+      </div>
+
+    </div>
     </div>
     <script src="script.js"></script>
   </body>
