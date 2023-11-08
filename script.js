@@ -1,88 +1,60 @@
 const seekBar = document.getElementById('seek-bar');
 const progressBar = document.getElementById('progress');
-
-seekBar.addEventListener('input', () => {
-  const progressWidth = seekBar.value;
-  progressBar.style.width = (progressWidth - 1 )+ '%';
-});
-
-seekBar.addEventListener('change', () => {  
-});
-
-
-// Get DOM elements for play-pause and seek bar
 const playPauseButton = document.getElementById('play-pause-button');
 const progress = document.getElementById('progress');
+const playPause = document.getElementById('play-pause');
+const songTime = document.querySelector('.song-time');
+const timeElapsed = document.querySelector('.time-elapsed');
+let songDuration = 613;
 
-// const updateProgressBar = function (e) {
-//     if (seekBar.value > 0) {
-//       const { duration, currentTime } = e.srcElement;
-  
-//       // Update progress bar width
-//       const progressPercent = (currentTime / duration) * 100;
-//       progress.style.width = `${progressPercent}%`;
-  
-//       // Calculate display for duration
-//       const durationMinutes = Math.floor(duration / 60);
-//       let durationSeconds = Math.floor(duration % 60);
-//       if (durationSeconds < 10) {
-//         durationSeconds = `0${durationSeconds}`;
-//       }
-  
-//       // Delay switching duration Element to avoid NaN
-//       if (durationSeconds) {
-//         durationEl.textContent = `${durationMinutes}:${durationSeconds}`;
-//       }
-  
-//       // Calculate display for currentTime
-//       const currentMinutes = Math.floor(currentTime / 60);
-//       let currentSeconds = Math.floor(currentTime % 60);
-//       if (currentSeconds < 10) {
-//         currentSeconds = `0${currentSeconds}`;
-//       }
-//       currentTimeEl.textContent = `${currentMinutes}:${currentSeconds}`;
-//     }
-//   }
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
 
-let isPlaying = false; // Track whether the music is playing
+function updateTimeElapsed() {
+    const currentTime = parseFloat(seekBar.value);
+    const elapsedSeconds = (currentTime / 100) * songDuration;
+    timeElapsed.textContent = formatTime(elapsedSeconds);
+    progressBar.style.width = currentTime + '%';
+    
+  }
 
-// Function to toggle play/pause and start/stop animation
+seekBar.addEventListener('input', updateTimeElapsed);
+
+
+
+let isPlaying = false; 
+let intervalID;
+
 function togglePlayPause() {
   if (isPlaying) {
-    console.log('play');
-
-    // Stop animation
-    playPauseButton.classList.remove('animate-play');
     isPlaying = false;
+    console.log('paused')    
+    playPause.src = "Polygon 1.png";
+    clearInterval(intervalID);
   } else {
-    console.log('pause');
-    playPauseButton.classList.add('animate-play');
     isPlaying = true;
+    playPause.src = "pause_button.png";
+    console.log('playing');
+    intervalID = setInterval(increaseSeekBar, 1000);
+    
   }
 }
-
-// Add a click event listener to the play-pause button
 playPauseButton.addEventListener('click', togglePlayPause);
 
-// Add an input event listener to the seek bar
-seekBar.addEventListener('input', updateProgress);
+function increaseSeekBar() {
+  const currentTime = parseFloat(seekBar.value);
+  const maxTime = songDuration;
+  const newTime = currentTime + 1;
 
-// Function to update the progress bar
-function updateProgress() {
-  const value = (seekBar.value - seekBar.min) / (seekBar.max - seekBar.min) * 100;
-  progress.style.width = value + '%';
-}
+  if (newTime <= maxTime) {
+    seekBar.value = newTime;
+    updateTimeElapsed(newTime);
 
-// Function to handle play/pause button animation
-function handlePlayPauseAnimation() {
-  if (isPlaying) {
-    // Start animation
-    playPauseButton.classList.add('animate-play');
   } else {
-    // Stop animation
-    playPauseButton.classList.remove('animate-play');
+    clearInterval(intervalID);
+    togglePlayPause();
   }
 }
-
-// Update play-pause button animation when the page loads
-handlePlayPauseAnimation();

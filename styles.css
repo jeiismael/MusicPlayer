@@ -87,6 +87,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 5px;
 }
 
 /* Seeker Bar */
@@ -106,6 +107,7 @@ body {
     height: 3px;
     border-radius: 3px;
     background: white;     
+    z-index: 1;
   }
   
   .progress {
@@ -115,22 +117,20 @@ body {
     height: 5px;
     border-radius: 3px;
     width: 40%;
-    max-width: 365px;
     background: #56255C;
     pointer-events: none;
     user-select: none;
-    z-index: 1;
-    overflow: none;
+    z-index: 2;
   }
   
   .bar input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 22px; 
     height: 22px;
-    background: whitesmoke; 
+    background: #56255C; 
     border-radius: 50%;
     border: 5px solid #56255C;
-    z-index: 2;
+    z-index: 5;
     
   }
 
@@ -139,7 +139,7 @@ body {
 .controls {
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  padding-top: 20px;
 }
 
 .control-button {
@@ -156,7 +156,6 @@ body {
   left: 100px;
   background: none;
   border: none;
-  padding-left: 15px;
 }
 .play-pause {
   position: relative;
