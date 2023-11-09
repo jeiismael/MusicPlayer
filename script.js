@@ -94,49 +94,41 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+// lyrics
 
-
-
-// const url = 'https://genius-song-lyrics1.p.rapidapi.com/search/?q=Taylor%20Swift&per_page=10&page=1';
-// const options = {
-// 	method: 'GET',
-// 	headers: {
-// 		'X-RapidAPI-Key': '8937ebfc7cmsh6623c5203929a5dp15970bjsn50b41bec8bc9',
-// 		'X-RapidAPI-Host': 'genius-song-lyrics1.p.rapidapi.com'
-// 	}
-// };
-
-const apiKey = '8937ebfc7cmsh6623c5203929a5dp15970bjsn50b41bec8bc9'; // Replace with your actual API key
-const searchQuery = '<All too well taylors version>'; // Replace with your search query
-
-const baseUrl = 'https://genius-song-lyrics1.p.rapidapi.com/search/';
-const url = new URL(baseUrl);
-url.searchParams.append('q', searchQuery);
-url.searchParams.append('per_page', 10);
-url.searchParams.append('page', 1);
-
+const url = 'https://genius-song-lyrics1.p.rapidapi.com/song/lyrics/?id=2396871&text_format=plain';
 const options = {
-  method: 'GET',
-  headers: {
-    'X-RapidAPI-Key': apiKey,
-    'X-RapidAPI-Host': 'genius-song-lyrics1.p.rapidapi.com',
-  },
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '302785cd01mshcd3b11b53413908p1c77f6jsnc41252bf7fd9',
+		'X-RapidAPI-Host': 'genius-song-lyrics1.p.rapidapi.com'
+	}
 };
 
-async function fetchAndDisplayLyrics() {
-  try {
-    const response = await fetch(url, options);
-	const result = await response.text();
-	console.log(result);
-    // const response = await fetch(url, options);
-    // if (response.status === 200) {
-    //   const data = await response.json();
-    //     console.log(response);
-    //     console.log(data)
-    //   } 
-  } catch (error) {
-    console.error(error);
-  }
-}
+async function fetchLyrics() {
+try {
+	const response = await fetch(url, options);
+	const data = await response.json();
+  const lyrics = data.lyrics.lyrics.body.plain;
+	console.log(data);
+  document.getElementById('lyrics-content').innerText = lyrics;
+  console.log(lyrics);
+} catch (error) {
+	console.error(error);
+}}
+fetchLyrics();
 
-fetchAndDisplayLyrics();
+// remove hyperlink from fetched data
+
+const myDiv = document.getElementById("lyrics-content");
+
+// Find all anchor (a) elements within the div
+const anchorElements = myDiv.querySelectorAll('a');
+
+// Iterate through the anchor elements and prevent their default behavior
+anchorElements.forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    console.log('prevent');
+    e.preventDefault(); // Prevent the default behavior of the link
+  });
+});
