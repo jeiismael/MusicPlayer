@@ -5,7 +5,7 @@ body {
   font-family: "Noto Sans", sans-serif;
   color: #28111e;
   display: flex;
-  /* justify-content: center; */
+  justify-content: center;
 }
 
 .music-player {
@@ -102,7 +102,7 @@ body {
   }
   
 
-  .bar input[type="range"] {
+  input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
     position: absolute;
@@ -120,7 +120,7 @@ body {
     left: 0;
     height: 5px;
     border-radius: 3px;
-    width: 40%;
+    width: 0;
     background: #56255C;
     pointer-events: none;
     user-select: none;
@@ -215,6 +215,18 @@ nav {
   height: 528px;
 }
 
+.nav-content p {
+  text-align: left;
+  font-size: 16px;
+  margin: 3px;
+  padding-left: 7px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 #lyrics-content {
   overflow-y: auto;
   white-space: nowrap;
@@ -243,5 +255,7 @@ nav {
   display: hidden; /* For Chrome, Safari, and Opera */
 }
 
-
+.inactive {
+  display: none;
+}
 

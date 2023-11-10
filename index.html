@@ -12,6 +12,9 @@
     <div class="music-player">
       <div class="player">
         <span class="showcase">
+          <audio id="audio">
+            <source src="All Too Well (10 Minute Version) (Taylor's Version) (From The Vault) (Lyric Video).mp3">
+          </audio>
           <img src="Artist.png" class="artist" />
           <img src="Vinyl.png" class="vinyl" />
         </span>
@@ -26,12 +29,12 @@
 
         <div class="seeker">
           <div class="time">
-            <span class="time-elapsed" id="time-elapsed">5:00</span>
-            <span class="song-time" id="song-time">10:13</span>
+            <span class="time-elapsed" id="time-elapsed">0:00</span>
+            <span class="song-time" id="song-time">0:00</span>
           </div>
 
           <div class="bar">
-            <input type="range" value="40" class="bar" id="seek-bar" />
+            <input type="range" value="0" min="0" step="1" class="bar" id="seek-bar" max="612"/>
             <div class="progress" id="progress"></div>
           </div>
 
@@ -41,7 +44,7 @@
             </button>
             <div id="" class="play-pause">
               <button id="play-pause-button" class="control-button-pp">
-                <img src="Polygon 1.png" id="play-pause" />
+                <img src="Polygon 1.png" id="play-pause-icon"/>
               </button>
             </div>
             <button id="next-button" class="control-button">
@@ -68,12 +71,12 @@
 
       <div class="nav-content">
         <div id="lyrics-content" style="display: block;">
-
         </div>
-        <div id="albums-content">
-
+        
+        <div id="albums-content" style="display: none;">
         </div>
-        <div id="artist-content">
+
+        <div id="artist-content" style="display: none;">
         </div>
       </div>
 

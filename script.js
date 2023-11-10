@@ -1,10 +1,12 @@
 const seekBar = document.getElementById("seek-bar");
 const progressBar = document.getElementById("progress");
 const playPauseButton = document.getElementById("play-pause-button");
+const playPauseIcon = document.getElementById('play-pause-icon');
 const progress = document.getElementById("progress");
-const playPause = document.getElementById("play-pause");
 const songTime = document.querySelector(".song-time");
 const timeElapsed = document.querySelector(".time-elapsed");
+const audio = document.getElementById('audio');
+
 let songDuration = 613;
 
 function formatTime(seconds) {
@@ -13,46 +15,38 @@ function formatTime(seconds) {
   return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
 }
 
-function updateTimeElapsed() {
-  const currentTime = parseFloat(seekBar.value);
-  const elapsedSeconds = (currentTime / 100) * songDuration;
-  timeElapsed.textContent = formatTime(elapsedSeconds);
-  progressBar.style.width = currentTime + "%";
-}
+audio.addEventListener('timeupdate', function() {
+  seekBar.value = audio.currentTime;
+  timeElapsed.textContent = formatTime(audio.currentTime);
 
-seekBar.addEventListener("input", updateTimeElapsed);
+  const progressPercent = (audio.currentTime / audio.duration) * 100;
+  const seekerWidth = seekBar.offsetWidth;
+  const progressBarWidth = (progressPercent / 100) * seekerWidth;
+  progressBar.style.width = `${progressBarWidth}px`;
+});
 
-let isPlaying = false;
-let intervalID;
+seekBar.addEventListener('input', function() {
+  audio.currentTime = seekBar.value;
+});
 
-function togglePlayPause() {
-  if (isPlaying) {
-    isPlaying = false;
-    console.log("paused");
-    playPause.src = "Polygon 1.png";
-    clearInterval(intervalID);
-  } else {
-    isPlaying = true;
-    playPause.src = "pause_button.png";
-    console.log("playing");
-    intervalID = setInterval(increaseSeekBar, 1000);
+audio.addEventListener('loadmetadata', function() {
+  totalTimeDisplay.textContent = formatTime(audio.duration);
+});
+
+audio.pause();
+function playPause() {
+  if (audio.paused) {
+    playPauseIcon.src = "pause_button.png";
+    audio.play();
+  }else {
+    playPauseIcon.src = "Polygon 1.png";
+    audio.pause();
   }
-}
-playPauseButton.addEventListener("click", togglePlayPause);
+};
 
-function increaseSeekBar() {
-  const currentTime = parseFloat(seekBar.value);
-  const maxTime = songDuration;
-  const newTime = currentTime + 1;
+playPauseButton.addEventListener('click', playPause);
 
-  if (newTime <= maxTime) {
-    seekBar.value = newTime;
-    updateTimeElapsed(newTime);
-  } else {
-    clearInterval(intervalID);
-    togglePlayPause();
-  }
-}
+
 
 // explorer
 
@@ -76,8 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
     lyricsContent.style.display = "none";
     albumsContent.style.display = "none";
     artistContent.style.display = "none";
-    content.style.display = "block";
+    content.style.display = "flex";
   }
+
+  setActiveLink(lyricsLink, lyricsContent);
 
   // Add click event listeners to the navigation links
   lyricsLink.addEventListener("click", function () {
@@ -92,6 +88,28 @@ document.addEventListener("DOMContentLoaded", function () {
     setActiveLink(artistLink, artistContent);
   });
 });
+
+// create elements
+
+function createAnchorElement(href) {
+  const anchorElement = document.createElement('a');
+  anchorElement.href = href;
+  return anchorElement;
+}
+
+function createImageElement(src) {
+  const imgElement = document.createElement('img');
+  imgElement.src = src;
+  return imgElement;
+}
+
+function createTextElement(text) {
+  const textElement = document.createElement('p');
+  textElement.textContent = text;
+  return textElement;
+}
+
+
 
 // lyrics
 
@@ -117,117 +135,76 @@ async function fetchLyrics() {
     console.error(error);
   }
 }
+
 fetchLyrics();
-
-// get related albums
-
-const albumsUrl =
-  "https://spotify23.p.rapidapi.com/artist_albums/?id=06HL4z0CvFAxyc27GXpf02&offset=0&limit=5";
-const artistUrl = 
-  "https://spotify23.p.rapidapi.com/artist_related/?id=06HL4z0CvFAxyc27GXpf02&offset=0&limit=5";
-const artistOptions = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": "302785cd01mshcd3b11b53413908p1c77f6jsnc41252bf7fd9",
-    "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
-  },
+// related albums and artists
+const apiHeaders = {
+  'X-RapidAPI-Key': '302785cd01mshcd3b11b53413908p1c77f6jsnc41252bf7fd9',
+  'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',
 };
-async function getAlbums() {
+
+
+async function fetchData(url, options) {
   try {
-    const response = await fetch(albumsUrl, artistOptions);
-    const result = await response.json();
-
-    const albums = result.data.artist.discography.albums;
-    console.log(result);
-
-    if (albums.items) {
-      for (let i = 0; i < 4 && i < albums.items.length; i++) {
-        const album = albums.items[i];
-
-        if (album.releases.items) {
-          for (let j = 0; j < album.releases.items.length; j++) {
-            const releaseItem = album.releases.items[j];
-            console.log(releaseItem.name);
-            console.log(releaseItem.id);
-
-            if (releaseItem.coverArt) {
-              const coverArtUrl = releaseItem.coverArt.sources[0];
-              const imageUrl = coverArtUrl.url;
-              console.log(imageUrl);
-
-              const anchorElement = document.createElement('a');
-
-              switch (i) {
-                case 0:
-                  anchorElement.href = `https://open.spotify.com/album/${releaseItem.id}`;
-                  break;
-                case 1:
-                  anchorElement.href = `https://open.spotify.com/album/${releaseItem.id}`;
-                  break;
-                case 2:
-                  anchorElement.href = `https://open.spotify.com/album/${releaseItem.id}`;
-                  break;
-              }
-              const imgElement = document.createElement('img');
-              imgElement.src = imageUrl;
-
-              anchorElement.appendChild(imgElement);
-              
-              const divElement = document.getElementById('albums-content');
-              divElement.appendChild(anchorElement);
-          }
-        }
-      }
-    }
-  } 
+    const response = await fetch(url, options);
+    return await response.json();
   } catch (error) {
     console.error(error);
-  }}
-getAlbums()
-
-// fetch related artist
-
-async function getArtists() {
-  try {
-    const response = await fetch(artistUrl, artistOptions);
-    const result = await response.json();
-    
-    if(result.artists) {
-      for (let i = 0; i < 4 && i < result.artists.length; i++) {
-        const relatedArtists = result.artists[i];
-        console.log(relatedArtists.id);
-        console.log(relatedArtists.name)
-        console.log(relatedArtists);
-        if (relatedArtists.images) {
-          const artistImage= relatedArtists.images[0];
-          const artistImageUrl = artistImage.url;
-          console.log(artistImageUrl);
-          console.log(relatedArtists)
-          const anchorElement = document.createElement('a');
-          switch (i) {
-            case 0:
-              anchorElement.href = `https://open.spotify.com/artist/${relatedArtists.id}`;
-              break;
-            case 1:
-              anchorElement.href = `https://open.spotify.com/artist/${relatedArtists.id}`;
-              break;
-            case 2:
-              anchorElement.href = `https://open.spotify.com/artist/${relatedArtists.id}`;
-              break;
-          }
-          const imgElement = document.createElement('img');
-          imgElement.src = artistImageUrl;
-
-          anchorElement.appendChild(imgElement);
-
-          const divElement = document.getElementById('artist-content');
-          divElement.appendChild(anchorElement);
-        }
-      }
-    } 
-  } catch(error) {
-    console.error(error);
+    return null;
   }
 }
 
-getArtists();
+function fetchContent(items, elementId, urlPrefix) {
+  if (items) {
+    const container = document.getElementById(elementId);
+    
+    for (let i = 0; i < Math.min(5, items.length); i++) {
+      const item = items[i];
+      const imageUrl = item.images ? item.images[0].url : null;
+      if (imageUrl) {
+        const href = `https://open.spotify.com/${urlPrefix}/${item.id}`;
+        const anchorElement = createAnchorElement(href);
+        const imgElement = createImageElement(imageUrl);
+        const textElement = createTextElement(item.name); 
+        anchorElement.appendChild(imgElement);
+        anchorElement.appendChild(textElement);
+        container.appendChild(anchorElement);
+      }
+    }
+  }
+}
+
+async function fetchAlbums() {
+  const albumsUrl = "https://spotify23.p.rapidapi.com/artist_albums/?id=06HL4z0CvFAxyc27GXpf02&offset=0&limit=4";
+  const albumsOptions = { method: "GET", headers: apiHeaders };
+  const result = await fetchData(albumsUrl, albumsOptions);
+  
+  if (!result) return;
+
+  const container = document.getElementById('albums-content');
+  
+  result.data.artist.discography.albums.items.forEach((album) => {
+    album.releases.items.forEach((releaseItem) => {
+      if (releaseItem.coverArt) {
+        const imageUrl = releaseItem.coverArt.sources[0].url;
+        const href = `https://open.spotify.com/album/${releaseItem.id}`;
+        const anchorElement = createAnchorElement(href);
+        const imgElement = createImageElement(imageUrl);
+        const textElement = createTextElement(releaseItem.name); // Add the album name below the image
+        anchorElement.appendChild(imgElement);
+        anchorElement.appendChild(textElement);
+        container.appendChild(anchorElement);
+      }
+    });
+  });
+}
+
+async function fetchArtists() {
+  const artistUrl = "https://spotify23.p.rapidapi.com/artist_related/?id=06HL4z0CvFAxyc27GXpf02&offset=0&limit=5";
+  const result = await fetchData(artistUrl, { method: "GET", headers: apiHeaders });
+  fetchContent(result.artists, 'artist-content', 'artist');
+}
+
+fetchAlbums();
+fetchArtists();
+
