@@ -211,15 +211,37 @@ nav {
 
 
 .nav-content {
-  width: 771px;
+  width: 500px;
   height: 528px;
+}
+
+#lyrics-content {
+  overflow-y: auto;
+  white-space: nowrap;
+  max-height: 500px;
 }
 
 #lyrics-content p{
   width: 20px;
 }
 
+#albums-content img, #artist-content img {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+}
 
+#albums-content, #artist-content {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  max-height: 300px;
+ 
+}
+
+#albums-content::-webkit-scrollbar {
+  display: hidden; /* For Chrome, Safari, and Opera */
+}
 
 
 
