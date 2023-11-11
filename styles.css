@@ -45,11 +45,11 @@ body {
 
 .vinyl {
   position: absolute;
-  right: 20px;
-  z-index: 1;
-  padding-top: 40px;
-  height: 242.36px;
-  width: 242.36px;
+    right: 10px;
+    z-index: 1;
+    padding-top: 40px;
+    height: 242.36px;
+    width: 258.2px;
 }
 
 /* Info Text */
@@ -228,9 +228,16 @@ a {
 }
 
 #lyrics-content {
-  overflow-y: auto;
+  overflow-y: scroll;
   white-space: nowrap;
   max-height: 500px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 50.52%, rgba(255, 255, 255, 0) 100%);
+  /* -webkit-background-clip: text; */
+  /* -webkit-text-fill-color: transparent; */
+  background-clip: text;
+  text-fill-color: transparent;
+
+
 }
 
 #lyrics-content p{
@@ -245,10 +252,13 @@ a {
 
 #albums-content, #artist-content {
   display: flex;
-  overflow-x: auto;
+  overflow-x: scroll;
   white-space: nowrap;
-  max-height: 300px;
- 
+  max-height: 300px; 
+}
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
 }
 
 #albums-content::-webkit-scrollbar {

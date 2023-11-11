@@ -1,0 +1,23 @@
+[
+    {
+      "title": "All Too Well (Taylor's Version)",
+      "artist": "Taylor Swift",
+      "file": "All Too Well (Taylor's Version).mp3",
+      "lyricsID": "7076626",
+      "coverArt": "Artist.png"
+    },
+    {
+      "title": "Anti Hero",
+      "artist": "Taylor Swift",
+      "file": "Anti Hero.mp3",
+      "lyricsID": "8434253",
+      "coverArt": "AntiHero.jpg"
+    },
+    {
+        "title": "Everything Has Changed",
+        "artist": "Taylor Swift ft. Ed Sheeran",
+        "file": "Everything Has Changed.mp3",
+        "lyricsID": "102730",
+        "coverArt": "EverythingHasChanged.jpg"
+    }
+]
