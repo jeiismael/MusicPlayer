@@ -234,7 +234,7 @@ a {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 50.52%, rgba(255, 255, 255, 0) 100%);
   /* -webkit-background-clip: text; */
   /* -webkit-text-fill-color: transparent; */
-  background-clip: text;
+  /* background-clip: text; */
   text-fill-color: transparent;
 
 
@@ -258,12 +258,10 @@ a {
 }
 ::-webkit-scrollbar {
   width: 0px;
-  background: transparent; /* make scrollbar transparent */
+  background: transparent; 
 }
 
-#albums-content::-webkit-scrollbar {
-  display: hidden; /* For Chrome, Safari, and Opera */
-}
+
 
 .inactive {
   display: none;
