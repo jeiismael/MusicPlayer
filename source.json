@@ -2,22 +2,22 @@
     {
       "title": "All Too Well (Taylor's Version)",
       "artist": "Taylor Swift",
-      "file": "All Too Well (Taylor's Version).mp3",
+      "file": "https://raw.githubusercontent.com/jeiismael/TechnicalExam/master/All Too Well (Taylor's Version).mp3",
       "lyricsID": "7076626",
-      "coverArt": "Artist.png"
+      "coverArt": "https://raw.githubusercontent.com/jeiismael/TechnicalExam/master/Artist.png"
     },
     {
       "title": "Anti Hero",
       "artist": "Taylor Swift",
-      "file": "Anti Hero.mp3",
+      "file": "https://raw.githubusercontent.com/jeiismael/TechnicalExam/master/Anti Hero.mp3",
       "lyricsID": "8434253",
-      "coverArt": "AntiHero.jpg"
+      "coverArt": "https://raw.githubusercontent.com/jeiismael/TechnicalExam/master/AntiHero.jpg"
     },
     {
         "title": "Everything Has Changed",
         "artist": "Taylor Swift ft. Ed Sheeran",
-        "file": "Everything Has Changed.mp3",
+        "file": "https://raw.githubusercontent.com/jeiismael/TechnicalExam/master/Everything Has Changed.mp3",
         "lyricsID": "102730",
-        "coverArt": "EverythingHasChanged.jpg"
+        "coverArt": "https://raw.githubusercontent.com/jeiismael/TechnicalExam/master/EverythingHasChanged.jpg"
     }
 ]
